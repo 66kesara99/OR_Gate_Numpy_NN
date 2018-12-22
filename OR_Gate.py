@@ -23,7 +23,7 @@ exp_output = np.array([[0,1,1,1]]).T
 def sigmoid(x):
     return 1/(1+np.exp(-x))
     
-def sigmoid_p(x):
+def sigmoid_d(x):
     return sigmoid(x)*(1-sigmoid(x))
 
 
@@ -54,7 +54,7 @@ weights = np.array([np.random.randn(), np.random.randn()])
 b = np.random.randn()
 
 learning_rate = 0.2
-costs = []
+errors = []
 
 for i in range(10000):
     # Select random input
@@ -67,11 +67,11 @@ for i in range(10000):
     
     # Calculate Error
     target = exp_output[ri]
-    cost = np.square(pred-target)
-    costs.append(cost)
+    error = np.square(pred-target)
+    errors.append(error)
     
     # Get differentiated error function
-    dcost_dz = 2*(pred-target)*sigmoid_p(z) 
+    dcost_dz = 2*(pred-target)*sigmoid_d(z) 
     dcostWeights = dcost_dz*point
     
     # Correct Error with learning rate
@@ -82,7 +82,7 @@ for i in range(10000):
 plt.title("Error vs Iterations Graph")
 plt.xlabel("Iterations")
 plt.ylabel("Error")
-plt.plot(costs)
+plt.plot(errors)
 
 
 # In[6]:
